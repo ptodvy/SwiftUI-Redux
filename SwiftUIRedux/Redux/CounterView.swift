@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct StoreTestView: Storable {
+struct CounterView: Storable {
     @EnvironmentObject var dependency: Dependencies
-    @StateObject var store: Store<StoreTestView.Feature>
+    @StateObject var store: Store<CounterView.Feature>
     
     var body: some View {
         Text("count: \(store.state.count)")
@@ -24,7 +24,7 @@ struct StoreTestView: Storable {
     }
 }
 
-extension StoreTestView {
+extension CounterView {
     struct Feature: FeatureType {
         
         struct State {
@@ -36,9 +36,9 @@ extension StoreTestView {
             case decrement
         }
         
-        var dependency: StoreTestFeatureDependencyType
+        var dependency: CounterFeatureDependencyType
         
-        init(dependency: StoreTestFeatureDependencyType) {
+        init(dependency: CounterFeatureDependencyType) {
             self.dependency = dependency
         }
         
@@ -55,7 +55,7 @@ extension StoreTestView {
 
 #Preview {
     var dependency = Dependencies(service: Service())
-    StoreTestView(store: .init(
+    CounterView(store: .init(
         feature: .init(dependency: dependency),
         initialState: .init(count: 0)
     )).environmentObject(dependency)

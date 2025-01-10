@@ -19,9 +19,9 @@ struct ContentView: View {
                 
                 Text("Hello, world!")
                 
-                NavigationLink("Go to StoreTestView") {
-                    let feature = StoreTestView.Feature(dependency: dependency)
-                    StoreTestView(store: .init(
+                NavigationLink("Go to CounterView") {
+                    let feature = CounterView.Feature(dependency: dependency)
+                    CounterView(store: .init(
                         feature: feature,
                         initialState: .init(count: 0)
                     ))
