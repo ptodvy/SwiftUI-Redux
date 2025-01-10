@@ -15,17 +15,16 @@ protocol Storable: View {
 protocol FeatureType {
     associatedtype State
     associatedtype Action
-    var state: State { get }
     @MainActor func reduce(into state: inout State, action: Action) async
 }
 
-class Store<Feature: FeatureType>: ObservableObject {
+final class Store<Feature: FeatureType>: ObservableObject {
     @Published var state: Feature.State
     private var feature: Feature
     
-    init(feature: Feature) {
+    init(feature: Feature, initialState state: Feature.State) {
         self.feature = feature
-        self.state = feature.state
+        self.state = state
     }
     
     @MainActor

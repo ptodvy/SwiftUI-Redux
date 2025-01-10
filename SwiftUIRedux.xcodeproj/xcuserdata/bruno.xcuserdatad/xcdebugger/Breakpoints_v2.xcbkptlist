@@ -7,98 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "851ADBB4-65E9-4D5F-9691-882FDEB80C32"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftUIRedux/Redux/Storable.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "send(action:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "851ADBB4-65E9-4D5F-9691-882FDEB80C32 - 6250d3902d7f38d0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in SwiftUIRedux.StoredFeature.send(action: &#x3c4;_0_0.Action) -&gt; ()"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/Storable.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34">
-               </Location>
-               <Location
-                  uuid = "851ADBB4-65E9-4D5F-9691-882FDEB80C32 - 81d6138c2427a940"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in SwiftUIRedux.StoredFeature.send(action: &#x3c4;_0_0.Action) -&gt; ()"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/Storable.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34">
-               </Location>
-               <Location
-                  uuid = "851ADBB4-65E9-4D5F-9691-882FDEB80C32 - 32ced85b912ca0d4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in SwiftUIRedux.StoredFeature.send(action: &#x3c4;_0_0.Action) -&gt; ()"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/Storable.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B1B909E4-BD10-4E43-A398-1B2AB35DBB77"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftUIRedux/Redux/Dependencies.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "increment(int:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2701ED7E-2389-496B-8D81-35D18346916A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftUIRedux/Redux/Dependencies.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "decrement(int:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E8A2F78F-C25C-4ABE-AE20-A3B8E29F981D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -110,50 +18,6 @@
             endingLineNumber = "16"
             landmarkName = "increment(int:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E8A2F78F-C25C-4ABE-AE20-A3B8E29F981D - 9698c1662923e503"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for SwiftUIRedux.Dependencies.increment(int: Swift.Int) async -&gt; Swift.Int"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/StoreTestDependencyType.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16">
-               </Location>
-               <Location
-                  uuid = "E8A2F78F-C25C-4ABE-AE20-A3B8E29F981D - 75217731b7539a3b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for SwiftUIRedux.Dependencies.increment(int: Swift.Int) async -&gt; Swift.Int"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/StoreTestDependencyType.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16">
-               </Location>
-               <Location
-                  uuid = "E8A2F78F-C25C-4ABE-AE20-A3B8E29F981D - 71eaf489204aa905"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for SwiftUIRedux.Dependencies.increment(int: Swift.Int) async -&gt; Swift.Int"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/StoreTestDependencyType.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,50 +34,6 @@
             endingLineNumber = "20"
             landmarkName = "decrement(int:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F25CF3CE-5DF0-4C02-BE9A-C5DBA6B92F46 - 5c120516b32473f1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for SwiftUIRedux.Dependencies.decrement(int: Swift.Int) async -&gt; Swift.Int"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/StoreTestDependencyType.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20">
-               </Location>
-               <Location
-                  uuid = "F25CF3CE-5DF0-4C02-BE9A-C5DBA6B92F46 - d3c657bb2058b0a9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for SwiftUIRedux.Dependencies.decrement(int: Swift.Int) async -&gt; Swift.Int"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/StoreTestDependencyType.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20">
-               </Location>
-               <Location
-                  uuid = "F25CF3CE-5DF0-4C02-BE9A-C5DBA6B92F46 - 277c28b98a4b3ff3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for SwiftUIRedux.Dependencies.decrement(int: Swift.Int) async -&gt; Swift.Int"
-                  moduleName = "SwiftUIRedux.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruno/Documents/dev/git/SwiftUI-Redux%202/SwiftUIRedux/Redux/StoreTestDependencyType.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

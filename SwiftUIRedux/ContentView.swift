@@ -21,7 +21,10 @@ struct ContentView: View {
                 
                 NavigationLink("Go to StoreTestView") {
                     let feature = StoreTestView.Feature(dependency: dependency)
-                    StoreTestView(store: .init(feature: feature))
+                    StoreTestView(store: .init(
+                        feature: feature,
+                        initialState: .init(count: 0)
+                    ))
                 }
             }
             .padding()

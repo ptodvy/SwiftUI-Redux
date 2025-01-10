@@ -36,8 +36,6 @@ extension StoreTestView {
             case decrement
         }
         
-        var state: State = State(count: 0)
-        
         var dependency: StoreTestFeatureDependencyType
         
         init(dependency: StoreTestFeatureDependencyType) {
@@ -57,7 +55,9 @@ extension StoreTestView {
 
 #Preview {
     var dependency = Dependencies(service: Service())
-    StoreTestView(store: .init(feature: .init(dependency: dependency)))
-        .environmentObject(dependency)
+    StoreTestView(store: .init(
+        feature: .init(dependency: dependency),
+        initialState: .init(count: 0)
+    )).environmentObject(dependency)
 }
 
