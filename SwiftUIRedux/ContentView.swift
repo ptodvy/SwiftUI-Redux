@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var dependency: Dependencies
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                
+                Text("Hello, world!")
+                
+                NavigationLink("Go to StoreTestView") {
+                    let feature = StoreTestView.Feature(dependency: dependency)
+                    StoreTestView(store: .init(feature: feature))
+                }
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(Dependencies(service: Service()))
 }

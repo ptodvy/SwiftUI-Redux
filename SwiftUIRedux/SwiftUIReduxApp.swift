@@ -12,6 +12,7 @@ struct SwiftUIReduxApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(Dependencies(service: Service()))
         }
     }
 }
