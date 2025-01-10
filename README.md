@@ -89,62 +89,6 @@ final class Store<Feature: FeatureType>: ObservableObject {
 
 ---
 
-## 🔗 통합 예제
-
-### **Feature 정의**
-```swift
-struct CounterFeature: FeatureType {
-    struct State {
-        var count: Int = 0
-    }
-
-    enum Action {
-        case increment
-        case decrement
-    }
-    
-    var dependency: CounterFeatureDependencyType
-        
-    init(dependency: CounterFeatureDependencyType) {
-        self.dependency = dependency
-    }
-        
-    @MainActor
-    func reduce(into state: inout State, action: Action) async {
-        switch action {
-        case .increment:
-            state.count = await dependency.increment(int: state.count)
-        case .decrement:
-            state.count = await dependency.decrement(int: state.count)
-        }
-    }
-}
-```
-
-### **뷰 통합**
-```swift
-struct CounterView: Storable {
-    @EnvironmentObject var dependency: Dependencies
-    @StateObject var store: Store<CounterFeature>
-
-    var body: some View {
-        VStack {
-            Text("Count: \(store.state.count)")
-            
-            Button("Increment") {
-                store.send(action: .increment)
-            }
-            
-            Button("Decrement") {
-                store.send(action: .decrement)
-            }
-        }
-    }
-}
-```
-
----
-
 ## 🎯 주요 기능
 
 - **확장 가능한 상태 관리**:
@@ -155,5 +99,189 @@ struct CounterView: Storable {
   async/await를 활용한 현대적인 비동기 작업 처리를 지원합니다.
 
 ---
+
+# SwiftUI Redux 프레임워크에서의 의존성 주입
+
+`CounterFeatureDependencyType`는 Redux 스타일의 상태 관리에서 의존성 주입을 구현하는 데 사용되는 중요한 인터페이스입니다. 
+---
+
+## 🔗 의존성 주입 구조
+
+### **`CounterFeatureDependencyType` 프로토콜**
+
+`CounterFeatureDependencyType`은 비즈니스 로직과 외부 의존성을 분리하는 데 사용됩니다. 이를 통해 코드는 더 유연하고 테스트하기 쉬워집니다.
+
+```swift
+protocol CounterFeatureDependencyType {
+    func increment(int: Int) async -> Int
+    func decrement(int: Int) async -> Int
+}
+```
+
+### **`Dependencies` 확장**
+
+`Dependencies` 객체는 `CounterFeatureDependencyType` 프로토콜을 구현하여 실제 서비스와 연동됩니다.
+
+```swift
+extension Dependencies: CounterFeatureDependencyType {
+    func increment(int: Int) async -> Int {
+        await service.increment(int: int)
+    }
+
+    func decrement(int: Int) async -> Int {
+        await service.decrement(int: int)
+    }
+}
+```
+
+`Dependencies`는 `Service`와의 의존성을 캡슐화하여, 이를 `CounterView.Feature`에서 사용할 수 있도록 제공합니다.
+
+---
+
+## 🔗 통합 예제
+
+`CounterFeatureDependencyType`은 `CounterView.Feature`의 의존성으로 주입됩니다.
+
+### **`CounterView.Feature`에서의 사용**
+
+```swift
+struct CounterView: Storable {
+    @EnvironmentObject var dependency: Dependencies
+    @StateObject var store: Store<CounterView.Feature>
+
+    var body: some View {
+        Text("count: \(store.state.count)")
+
+        Button("Increment") {
+            store.send(action: .increment)
+        }
+
+        Button("Decrement") {
+            store.send(action: .decrement)
+        }
+    }
+}
+
+extension CounterView {
+    struct Feature: FeatureType {
+
+        struct State {
+            var count: Int
+        }
+
+        enum Action {
+            case increment
+            case decrement
+        }
+
+        var dependency: CounterFeatureDependencyType
+
+        init(dependency: CounterFeatureDependencyType) {
+            self.dependency = dependency
+        }
+
+        func reduce(into state: inout State, action: Action) async {
+            switch action {
+            case .increment:
+                state.count = await dependency.increment(int: state.count)
+            case .decrement:
+                state.count = await dependency.decrement(int: state.count)
+            }
+        }
+    }
+}
+```
+
+### **미리보기에서 의존성 주입**
+
+미리보기에서는 `Dependencies` 객체를 초기화하여 `CounterView`에 주입합니다.
+
+```swift
+#Preview {
+    let dependency = Dependencies(service: Service())
+    CounterView(store: .init(
+        feature: .init(dependency: dependency),
+        initialState: .init(count: 0)
+    )).environmentObject(dependency)
+}
+```
+
+---
+
+## 🎯 테스트 용이성
+
+### **Mock 구현 예제**
+
+테스트를 위해 `CounterFeatureDependencyType`의 모의(Mock) 구현을 제공합니다.
+
+```swift
+class MockCounterFeatureDependency: CounterFeatureDependencyType {
+    func increment(int: Int) async -> Int {
+        return int + 1 // Mock 동작: 항상 1을 증가
+    }
+
+    func decrement(int: Int) async -> Int {
+        return int - 1 // Mock 동작: 항상 1을 감소
+    }
+}
+```
+
+### **테스트 코드 예제**
+
+아래는 유닛 테스트를 작성하는 예제입니다.
+
+```swift
+import XCTest
+
+@MainActor
+final class CounterFeatureTests: XCTestCase {
+    func testIncrementAction() async throws {
+        // Given
+        let mockDependency = MockCounterFeatureDependency()
+        var state = CounterView.Feature.State(count: 0)
+        let feature = CounterView.Feature(dependency: mockDependency)
+
+        // When
+        await feature.reduce(into: &state, action: .increment)
+
+        // Then
+        XCTAssertEqual(state.count, 1)
+    }
+
+    func testDecrementAction() async throws {
+        // Given
+        let mockDependency = MockCounterFeatureDependency()
+        var state = CounterView.Feature.State(count: 1)
+        let feature = CounterView.Feature(dependency: mockDependency)
+
+        // When
+        await feature.reduce(into: &state, action: .decrement)
+
+        // Then
+        XCTAssertEqual(state.count, 0)
+    }
+}
+```
+
+---
+
+## 🌟 장점
+
+1. **의존성 분리**:
+   - 비즈니스 로직과 외부 의존성을 분리하여 코드의 유연성을 높입니다.
+   - 외부 서비스 변경 시에도 `CounterView.Feature`에는 영향을 미치지 않습니다.
+
+2. **테스트 가능성**:
+   - 모의 객체를 사용하여 외부 의존성 없이도 테스트를 실행할 수 있습니다.
+   - 네트워크와 같은 외부 요인에 의존하지 않습니다.
+
+3. **확장성**:
+   - 다양한 구현체(Mock, 실제 서비스 등)를 런타임에 주입할 수 있어 코드의 재사용성을 높입니다.
+
+---
+
+`CounterFeatureDependencyType`는 의존성 역전 원칙(DIP)을 준수하여 설계되었으며, 이로 인해 코드의 품질과 유지보수성이 크게 향상됩니다.
+
+
 
 
