@@ -1,27 +1,27 @@
-# SwiftUI Redux 프레임워크
+# SwiftUI Redux Framework
 
-이 프로젝트는 SwiftUI에서 Redux 스타일의 상태 관리 시스템을 구현한 예제입니다. 확장성, 테스트 용이성, 사용 편의성을 목표로 설계되었으며, 프로토콜과 제네릭을 활용해 상태 관리와 UI 컴포넌트를 분리합니다.
-
----
-
-## 📋 개요
-
-프레임워크는 다음과 같은 구성 요소를 포함합니다:
-
-1. **`Storable` 프로토콜**  
-   SwiftUI 뷰에 `Store`를 통해 통합하기 위한 표준 인터페이스를 제공합니다.
-
-2. **`FeatureType` 프로토콜**  
-   상태와 액션을 정의하고, `reduce` 메서드를 통해 상태 관리 로직을 구현합니다.
-
-3. **`Store` 클래스**  
-   상태를 관리하며, 액션을 처리하고 `FeatureType`과 통합합니다.
+This project is an example implementation of a Redux-style state management system in SwiftUI. It is designed with extensibility, testability, and ease of use in mind. The framework separates state management and UI components using protocols and generics.
 
 ---
 
-## 🛠️ 주요 구성 요소
+## 📋 Overview
 
-### **`Storable` 프로토콜**
+The framework consists of the following components:
+
+1. **`Storable` Protocol**  
+   Provides a standard interface to integrate `Store` into SwiftUI views.
+
+2. **`FeatureType` Protocol**  
+   Defines state and actions, and implements state management logic through a `reduce` method.
+
+3. **`Store` Class**  
+   Manages state, processes actions, and integrates with `FeatureType`.
+
+---
+
+## 🛠️ Core Components
+
+### **`Storable` Protocol**
 ```swift
 protocol Storable: View {
     associatedtype Feature: FeatureType
@@ -29,14 +29,14 @@ protocol Storable: View {
 }
 ```
 
-- SwiftUI `View`에 `Store`를 통합하기 위한 프로토콜입니다.
-- `Feature`는 반드시 `FeatureType`을 준수해야 합니다.
+- A protocol for integrating `Store` into SwiftUI `View`s.
+- `Feature` must conform to `FeatureType`.
 
 ---
 
-### **`FeatureType` 프로토콜**
+### **`FeatureType` Protocol**
 
-`FeatureType` 프로토콜은 Redux 스타일의 상태 관리에서 핵심 역할을 합니다. 상태(State)와 액션(Action)을 정의하고, `reduce` 메서드를 통해 액션에 따라 상태를 변경하는 로직을 제공합니다.
+`FeatureType` plays a key role in Redux-style state management. It defines the state and actions and provides the `reduce` method to update the state according to the action.
 
 ```swift
 protocol FeatureType {
@@ -46,23 +46,23 @@ protocol FeatureType {
 }
 ```
 
-#### **구성 요소**
+#### **Components**
 1. **`State`**  
-   - 애플리케이션의 현재 상태를 나타냅니다.  
-   - 상태는 구조체로 정의하는 것이 일반적이며, 불변성을 유지합니다.
+   - Represents the current state of the application.  
+   - Typically defined as a struct and kept immutable.
 
 2. **`Action`**  
-   - 사용자 상호작용, 이벤트 또는 기타 상태 변경 요청을 나타냅니다.  
-   - 보통 열거형(enum)으로 정의하여 가능한 모든 액션을 명확히 기술합니다.
+   - Represents user interactions, events, or other state change requests.  
+   - Usually defined as an enum to clearly list all possible actions.
 
-3. **`reduce` 메서드**  
-   - 상태를 변경하는 핵심 로직을 제공합니다.  
-   - 특정 액션에 따라 `State`를 수정하며, 비동기 작업(`async`)을 지원합니다.  
-   - `@MainActor`를 사용해서 메인 스레드에서 UI 업데이트를 안전하게 수행합니다.
+3. **`reduce` Method**  
+   - Core logic for updating the state.  
+   - Modifies `State` based on the specific `Action`, supporting async operations.  
+   - Uses `@MainActor` to safely update UI on the main thread.
 
 ---
 
-### **`Store` 클래스**
+### **`Store` Class**
 ```swift
 final class Store<Feature: FeatureType>: ObservableObject {
     @Published var state: Feature.State
@@ -82,34 +82,38 @@ final class Store<Feature: FeatureType>: ObservableObject {
 }
 ```
 
-- **상태 관리**:
-  - `@Published`를 사용해 상태 변경 시 SwiftUI와의 빠른 통합을 제공합니다.
-- **액션 처리**:
-  - 액션을 `reduce` 메서드로 전달하여 상태를 변경합니다.
+- **State Management**:  
+  Uses `@Published` for seamless integration with SwiftUI on state changes.
+
+- **Action Handling**:  
+  Delivers actions to the `reduce` method to update the state.
 
 ---
 
-## 🎯 주요 기능
+## 🎯 Key Features
 
-- **확장 가능한 상태 관리**:
-  `FeatureType`을 준수하는 새로운 상태 관리 로직을 쉽게 추가할 수 있습니다.
-- **SwiftUI와의 완벽한 통합**:
-  `@Published`와 `@StateObject`를 통해 상태 변경 시 SwiftUI와 즉각적으로 연동됩니다.
-- **비동기 작업 처리**:
-  async/await를 활용한 현대적인 비동기 작업 처리를 지원합니다.
+- **Scalable State Management**:  
+  Easily add new state logic by conforming to `FeatureType`.
+
+- **Seamless Integration with SwiftUI**:  
+  Uses `@Published` and `@StateObject` for immediate UI updates on state changes.
+
+- **Async Support**:  
+  Supports modern async operations using `async/await`.
 
 ---
 
-# SwiftUI Redux 프레임워크에서의 의존성 주입
+# Dependency Injection in the SwiftUI Redux Framework
 
-`CounterFeatureDependencyType`는 Redux 스타일의 상태 관리에서 의존성 주입을 구현하는 데 사용되는 중요한 인터페이스입니다. 
+`CounterFeatureDependencyType` is an essential interface for implementing dependency injection in Redux-style state management.
+
 ---
 
-## 🔗 의존성 주입 구조
+## 🔗 Dependency Injection Structure
 
-### **`CounterFeatureDependencyType` 프로토콜**
+### **`CounterFeatureDependencyType` Protocol**
 
-`CounterFeatureDependencyType`은 비즈니스 로직과 외부 의존성을 분리하는 데 사용됩니다. 이를 통해 코드는 더 유연하고 테스트하기 쉬워집니다.
+This protocol is used to separate business logic from external dependencies, improving flexibility and testability.
 
 ```swift
 protocol CounterFeatureDependencyType {
@@ -118,9 +122,9 @@ protocol CounterFeatureDependencyType {
 }
 ```
 
-### **`Dependencies` 확장**
+### **`Dependencies` Extension**
 
-`Dependencies` 객체는 `CounterFeatureDependencyType` 프로토콜을 구현하여 실제 서비스와 연동됩니다.
+The `Dependencies` object implements `CounterFeatureDependencyType` to connect with the actual service.
 
 ```swift
 extension Dependencies: CounterFeatureDependencyType {
@@ -134,15 +138,15 @@ extension Dependencies: CounterFeatureDependencyType {
 }
 ```
 
-`Dependencies`는 `Service`와의 의존성을 캡슐화하여, 이를 `CounterView.Feature`에서 사용할 수 있도록 제공합니다.
+`Dependencies` encapsulates the dependency on `Service`, making it available to `CounterView.Feature`.
 
 ---
 
-## 🔗 통합 예제
+## 🔗 Integration Example
 
-`CounterFeatureDependencyType`은 `CounterView.Feature`의 의존성으로 주입됩니다.
+`CounterFeatureDependencyType` is injected as a dependency into `CounterView.Feature`.
 
-### **`CounterView.Feature`에서의 사용**
+### **Usage in `CounterView.Feature`**
 
 ```swift
 struct CounterView: Storable {
@@ -192,9 +196,9 @@ extension CounterView {
 }
 ```
 
-### **미리보기에서 의존성 주입**
+### **Dependency Injection in Preview**
 
-미리보기에서는 `Dependencies` 객체를 초기화하여 `CounterView`에 주입합니다.
+In previews, initialize the `Dependencies` object and inject it into `CounterView`.
 
 ```swift
 #Preview {
@@ -208,27 +212,27 @@ extension CounterView {
 
 ---
 
-## 🎯 테스트 용이성
+## 🎯 Testability
 
-### **Mock 구현 예제**
+### **Mock Implementation Example**
 
-테스트를 위해 `CounterFeatureDependencyType`의 모의(Mock) 구현을 제공합니다.
+Provide a mock implementation of `CounterFeatureDependencyType` for testing.
 
 ```swift
 class MockCounterFeatureDependency: CounterFeatureDependencyType {
     func increment(int: Int) async -> Int {
-        return int + 1 // Mock 동작: 항상 1을 증가
+        return int + 1 // Always increment by 1
     }
 
     func decrement(int: Int) async -> Int {
-        return int - 1 // Mock 동작: 항상 1을 감소
+        return int - 1 // Always decrement by 1
     }
 }
 ```
 
-### **테스트 코드 예제**
+### **Example Test Code**
 
-아래는 유닛 테스트를 작성하는 예제입니다.
+Here's an example of writing unit tests:
 
 ```swift
 import XCTest
@@ -265,23 +269,18 @@ final class CounterFeatureTests: XCTestCase {
 
 ---
 
-## 🌟 장점
+## 🌟 Advantages
 
-1. **의존성 분리**:
-   - 비즈니스 로직과 외부 의존성을 분리하여 코드의 유연성을 높입니다.
-   - 외부 서비스 변경 시에도 `CounterView.Feature`에는 영향을 미치지 않습니다.
+1. **Dependency Separation**:  
+   - Separates business logic from external dependencies, increasing code flexibility.  
+   - Changes to external services do not affect `CounterView.Feature`.
 
-2. **테스트 가능성**:
-   - 모의 객체를 사용하여 외부 의존성 없이도 테스트를 실행할 수 있습니다.
-   - 네트워크와 같은 외부 요인에 의존하지 않습니다.
+2. **Testability**:  
+   - Use mock objects to test without relying on external dependencies like networks.
 
-3. **확장성**:
-   - 다양한 구현체(Mock, 실제 서비스 등)를 런타임에 주입할 수 있어 코드의 재사용성을 높입니다.
+3. **Extensibility**:  
+   - Easily inject various implementations (mock, real service, etc.) at runtime for code reuse.
 
 ---
 
-`CounterFeatureDependencyType`는 의존성 역전 원칙(DIP)을 준수하여 설계되었으며, 이로 인해 코드의 품질과 유지보수성이 크게 향상됩니다.
-
-
-
-
+`CounterFeatureDependencyType` follows the Dependency Inversion Principle (DIP), significantly improving code quality and maintainability.
