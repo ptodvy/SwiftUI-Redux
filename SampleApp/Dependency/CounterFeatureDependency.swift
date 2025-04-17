@@ -6,12 +6,12 @@
 //
 import Foundation
 
-protocol CounterFeatureDependencyType {
+protocol CounterFeatureDependency {
     func increment(int: Int) async -> Int
     func decrement(int: Int) async -> Int
 }
 
-extension Dependencies: CounterFeatureDependencyType {
+extension Dependencies: CounterFeatureDependency {
     func increment(int: Int) async -> Int {
         await service.increment(int: int)
     }
@@ -20,3 +20,15 @@ extension Dependencies: CounterFeatureDependencyType {
         await service.decrement(int: int)
     }
 }
+
+
+class MockCounterFeatureDependency: CounterFeatureDependency {
+    func increment(int: Int) async -> Int {
+        return int + 1
+    }
+ 
+    func decrement(int: Int) async -> Int {
+        return int - 1
+    }
+}
+

@@ -1,12 +1,12 @@
 //
-//  SwiftUIReduxTests.swift
-//  SwiftUIReduxTests
+//  CounterFeatureTests.swift
+//  SampleAppTests
 //
 //  Created by bruno on 1/10/25.
 //
 
 import Testing
-@testable import SwiftUIRedux
+@testable import SampleApp
 
 struct CounterFeatureTests {
 
@@ -24,7 +24,7 @@ struct CounterFeatureTests {
         
         await store.send(action: .decrement)
         
-        #expect(store.state.count == 0)
+        #expect(store.state.count == -1)
     }
     
     @Test
@@ -38,15 +38,5 @@ struct CounterFeatureTests {
         #expect(store.state.text == "testEditText")
         try await Task.sleep(for: .milliseconds(100))
         #expect(store.state.textLength == "testEditText".count)
-    }
-}
-
-class MockCounterFeatureDependency: CounterFeatureDependencyType {
-    func increment(int: Int) async -> Int {
-        return int + 1
-    }
- 
-    func decrement(int: Int) async -> Int {
-        return int - 1
     }
 }

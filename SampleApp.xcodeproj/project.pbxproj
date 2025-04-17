@@ -14,35 +14,22 @@
 			remoteGlobalIDString = 150DFB362D30D072008A69EF;
 			remoteInfo = SwiftUIRedux;
 		};
-		150DFB522D30D073008A69EF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 150DFB2F2D30D072008A69EF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 150DFB362D30D072008A69EF;
-			remoteInfo = SwiftUIRedux;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		150DFB372D30D072008A69EF /* SwiftUIRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		150DFB472D30D073008A69EF /* SwiftUIReduxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIReduxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		150DFB512D30D073008A69EF /* SwiftUIReduxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIReduxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		150DFB372D30D072008A69EF /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		150DFB472D30D073008A69EF /* SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		150DFB392D30D072008A69EF /* SwiftUIRedux */ = {
+		150DFB392D30D072008A69EF /* SampleApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftUIRedux;
+			path = SampleApp;
 			sourceTree = "<group>";
 		};
-		150DFB4A2D30D073008A69EF /* SwiftUIReduxTests */ = {
+		150DFB4A2D30D073008A69EF /* SampleAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftUIReduxTests;
-			sourceTree = "<group>";
-		};
-		150DFB542D30D073008A69EF /* SwiftUIReduxUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftUIReduxUITests;
+			path = SampleAppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,22 +49,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		150DFB4E2D30D073008A69EF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		150DFB2E2D30D072008A69EF = {
 			isa = PBXGroup;
 			children = (
-				150DFB392D30D072008A69EF /* SwiftUIRedux */,
-				150DFB4A2D30D073008A69EF /* SwiftUIReduxTests */,
-				150DFB542D30D073008A69EF /* SwiftUIReduxUITests */,
+				150DFB392D30D072008A69EF /* SampleApp */,
+				150DFB4A2D30D073008A69EF /* SampleAppTests */,
 				150DFB382D30D072008A69EF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +64,8 @@
 		150DFB382D30D072008A69EF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				150DFB372D30D072008A69EF /* SwiftUIRedux.app */,
-				150DFB472D30D073008A69EF /* SwiftUIReduxTests.xctest */,
-				150DFB512D30D073008A69EF /* SwiftUIReduxUITests.xctest */,
+				150DFB372D30D072008A69EF /* SampleApp.app */,
+				150DFB472D30D073008A69EF /* SampleAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		150DFB362D30D072008A69EF /* SwiftUIRedux */ = {
+		150DFB362D30D072008A69EF /* SampleApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 150DFB5B2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SwiftUIRedux" */;
+			buildConfigurationList = 150DFB5B2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SampleApp" */;
 			buildPhases = (
 				150DFB332D30D072008A69EF /* Sources */,
 				150DFB342D30D072008A69EF /* Frameworks */,
@@ -108,18 +86,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				150DFB392D30D072008A69EF /* SwiftUIRedux */,
+				150DFB392D30D072008A69EF /* SampleApp */,
 			);
-			name = SwiftUIRedux;
+			name = SampleApp;
 			packageProductDependencies = (
 			);
 			productName = SwiftUIRedux;
-			productReference = 150DFB372D30D072008A69EF /* SwiftUIRedux.app */;
+			productReference = 150DFB372D30D072008A69EF /* SampleApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		150DFB462D30D073008A69EF /* SwiftUIReduxTests */ = {
+		150DFB462D30D073008A69EF /* SampleAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 150DFB5E2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SwiftUIReduxTests" */;
+			buildConfigurationList = 150DFB5E2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SampleAppTests" */;
 			buildPhases = (
 				150DFB432D30D073008A69EF /* Sources */,
 				150DFB442D30D073008A69EF /* Frameworks */,
@@ -131,37 +109,14 @@
 				150DFB492D30D073008A69EF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				150DFB4A2D30D073008A69EF /* SwiftUIReduxTests */,
+				150DFB4A2D30D073008A69EF /* SampleAppTests */,
 			);
-			name = SwiftUIReduxTests;
+			name = SampleAppTests;
 			packageProductDependencies = (
 			);
 			productName = SwiftUIReduxTests;
-			productReference = 150DFB472D30D073008A69EF /* SwiftUIReduxTests.xctest */;
+			productReference = 150DFB472D30D073008A69EF /* SampleAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		150DFB502D30D073008A69EF /* SwiftUIReduxUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 150DFB612D30D073008A69EF /* Build configuration list for PBXNativeTarget "SwiftUIReduxUITests" */;
-			buildPhases = (
-				150DFB4D2D30D073008A69EF /* Sources */,
-				150DFB4E2D30D073008A69EF /* Frameworks */,
-				150DFB4F2D30D073008A69EF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				150DFB532D30D073008A69EF /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				150DFB542D30D073008A69EF /* SwiftUIReduxUITests */,
-			);
-			name = SwiftUIReduxUITests;
-			packageProductDependencies = (
-			);
-			productName = SwiftUIReduxUITests;
-			productReference = 150DFB512D30D073008A69EF /* SwiftUIReduxUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -180,13 +135,9 @@
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = 150DFB362D30D072008A69EF;
 					};
-					150DFB502D30D073008A69EF = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = 150DFB362D30D072008A69EF;
-					};
 				};
 			};
-			buildConfigurationList = 150DFB322D30D072008A69EF /* Build configuration list for PBXProject "SwiftUIRedux" */;
+			buildConfigurationList = 150DFB322D30D072008A69EF /* Build configuration list for PBXProject "SampleApp" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +151,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				150DFB362D30D072008A69EF /* SwiftUIRedux */,
-				150DFB462D30D073008A69EF /* SwiftUIReduxTests */,
-				150DFB502D30D073008A69EF /* SwiftUIReduxUITests */,
+				150DFB362D30D072008A69EF /* SampleApp */,
+				150DFB462D30D073008A69EF /* SampleAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		150DFB452D30D073008A69EF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		150DFB4F2D30D073008A69EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,25 +189,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		150DFB4D2D30D073008A69EF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		150DFB492D30D073008A69EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 150DFB362D30D072008A69EF /* SwiftUIRedux */;
+			target = 150DFB362D30D072008A69EF /* SampleApp */;
 			targetProxy = 150DFB482D30D073008A69EF /* PBXContainerItemProxy */;
-		};
-		150DFB532D30D073008A69EF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 150DFB362D30D072008A69EF /* SwiftUIRedux */;
-			targetProxy = 150DFB522D30D073008A69EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -395,7 +326,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIRedux/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -408,7 +339,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.swiftuiredux.SwiftUIRedux;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -423,7 +354,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIRedux/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -436,7 +367,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.swiftuiredux.SwiftUIRedux;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -458,7 +389,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIRedux.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUIRedux";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SampleApp";
 			};
 			name = Debug;
 		};
@@ -476,46 +407,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIRedux.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUIRedux";
-			};
-			name = Release;
-		};
-		150DFB622D30D073008A69EF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.swiftuiredux.SwiftUIReduxUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SwiftUIRedux;
-			};
-			name = Debug;
-		};
-		150DFB632D30D073008A69EF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.swiftuiredux.SwiftUIReduxUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SwiftUIRedux;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SampleApp";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		150DFB322D30D072008A69EF /* Build configuration list for PBXProject "SwiftUIRedux" */ = {
+		150DFB322D30D072008A69EF /* Build configuration list for PBXProject "SampleApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				150DFB592D30D073008A69EF /* Debug */,
@@ -524,7 +423,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		150DFB5B2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SwiftUIRedux" */ = {
+		150DFB5B2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SampleApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				150DFB5C2D30D073008A69EF /* Debug */,
@@ -533,20 +432,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		150DFB5E2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SwiftUIReduxTests" */ = {
+		150DFB5E2D30D073008A69EF /* Build configuration list for PBXNativeTarget "SampleAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				150DFB5F2D30D073008A69EF /* Debug */,
 				150DFB602D30D073008A69EF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		150DFB612D30D073008A69EF /* Build configuration list for PBXNativeTarget "SwiftUIReduxUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				150DFB622D30D073008A69EF /* Debug */,
-				150DFB632D30D073008A69EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

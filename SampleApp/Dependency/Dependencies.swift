@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-/// environmentObject로 사용할 ObservableObject
 class Dependencies: ObservableObject {
-    // Network
+
     var service: ServiceType
     
     init(service: ServiceType) {
