@@ -12,15 +12,37 @@ struct CounterView: Storable {
     @StateObject var store: Store<CounterView.Feature>
     
     var body: some View {
-        Text("count: \(store.state.count)")
-        
-        Button("Increment") {
-            store.send(action: .increment)
+        VStack {
+            Spacer()
+            
+            TextField("", text: store.binding(for: \.text, action: .textChange))
+                .padding(.leading, 8)
+                .frame(height: 44)
+                .border(Color.blue)
+            
+            Text("textLength: \(store.state.textLength)")
+            
+            Text("text: \(store.state.text)")
+
+            Divider()
+            
+            HStack {
+                Button("Increment") {
+                    store.send(action: .increment)
+                }
+                .buttonStyle(.borderedProminent)
+                
+                Button("Decrement") {
+                    store.send(action: .decrement)
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            
+            Text("count: \(store.state.count)")
+            
+            Spacer()
         }
-        
-        Button("Decrement") {
-            store.send(action: .decrement)
-        }
+        .padding(18)
     }
 }
 
@@ -28,12 +50,19 @@ extension CounterView {
     struct Feature: FeatureType {
         
         struct State {
-            var count: Int
+            var count: Int = 0
+            var text: String = ""
+            var textLength: Int = 0
         }
         
-        enum Action {
+        enum Action: BindableAction {
             case increment
             case decrement
+            case binding(_ action: BindingAction)
+        }
+        
+        enum BindingAction {
+            case textChange
         }
         
         var dependency: CounterFeatureDependencyType
@@ -48,6 +77,12 @@ extension CounterView {
                 state.count = await dependency.increment(int: state.count)
             case .decrement:
                 state.count = await dependency.decrement(int: state.count)
+            case .binding(let BindingAction):
+                switch BindingAction {
+                case .textChange:
+                    state.textLength = state.text.count
+                    break
+                }
             }
         }
     }
@@ -57,7 +92,7 @@ extension CounterView {
     var dependency = Dependencies(service: Service())
     CounterView(store: .init(
         feature: .init(dependency: dependency),
-        initialState: .init(count: 0)
+        initialState: .init()
     )).environmentObject(dependency)
 }
 

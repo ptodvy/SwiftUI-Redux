@@ -23,7 +23,7 @@ struct ContentView: View {
                     let feature = CounterView.Feature(dependency: dependency)
                     CounterView(store: .init(
                         feature: feature,
-                        initialState: .init(count: 0)
+                        initialState: .init()
                     ))
                 }
             }
