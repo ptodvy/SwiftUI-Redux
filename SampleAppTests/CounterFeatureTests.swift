@@ -8,8 +8,9 @@
 import Testing
 @testable import SampleApp
 
+@MainActor
 struct CounterFeatureTests {
-
+    
     @Test func testIncrementAction() async throws {
         let store = Store<CounterView.Feature>(feature: .init(dependency: MockCounterFeatureDependency()), initialState: .init())
         

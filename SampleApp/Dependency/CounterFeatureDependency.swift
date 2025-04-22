@@ -6,7 +6,7 @@
 //
 import Foundation
 
-protocol CounterFeatureDependency {
+protocol CounterFeatureDependency: Sendable {
     func increment(int: Int) async -> Int
     func decrement(int: Int) async -> Int
 }
@@ -21,8 +21,7 @@ extension Dependencies: CounterFeatureDependency {
     }
 }
 
-
-class MockCounterFeatureDependency: CounterFeatureDependency {
+final class MockCounterFeatureDependency: CounterFeatureDependency {
     func increment(int: Int) async -> Int {
         return int + 1
     }

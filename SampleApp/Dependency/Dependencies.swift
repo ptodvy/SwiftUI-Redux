@@ -7,30 +7,34 @@
 
 import SwiftUI
 
-class Dependencies: ObservableObject {
+final class Dependencies: Sendable, ObservableObject {
 
-    var service: ServiceType
+    let service: ServiceType
     
     init(service: ServiceType) {
         self.service = service
     }
 }
 
-protocol ServiceType {
+protocol ServiceType: Sendable {
     func increment(int: Int) async -> Int
     func decrement(int: Int) async -> Int
 }
 
 struct Service: ServiceType {
     func increment(int: Int) async -> Int {
-        var int = int
-        int += 1
-        return int
+        return await Task.detached {
+            var result = int
+            result += 1
+            return result
+        }.value
     }
     
     func decrement(int: Int) async -> Int {
-        var int = int
-        int -= 1
-        return int
+        return await Task.detached {
+            var int = int
+            int -= 1
+            return int
+        }.value
     }
 }

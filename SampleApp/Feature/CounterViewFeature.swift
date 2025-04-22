@@ -7,6 +7,7 @@
 
 
 extension CounterView {
+    
     struct Feature: FeatureType {
         
         struct State {
@@ -25,25 +26,28 @@ extension CounterView {
             case textChange
         }
         
-        var dependency: CounterFeatureDependency
+        let dependency: CounterFeatureDependency
         
         init(dependency: CounterFeatureDependency) {
             self.dependency = dependency
         }
         
-        func reduce(into state: inout State, action: Action) async {
+        func reduce(state: State, action: Action) async -> Self.State {
+            var newState = state
             switch action {
             case .increment:
-                state.count = await dependency.increment(int: state.count)
+                newState.count = await dependency.increment(int: state.count)
             case .decrement:
-                state.count = await dependency.decrement(int: state.count)
+                newState.count = await dependency.decrement(int: state.count)
             case .binding(let BindingAction):
                 switch BindingAction {
                 case .textChange:
-                    state.textLength = state.text.count
+                    newState.textLength = state.text.count
                     break
                 }
             }
+            
+            return newState
         }
     }
 }

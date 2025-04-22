@@ -47,7 +47,7 @@ struct CounterView: Storable {
 }
 
 #Preview {
-    var dependency = Dependencies(service: Service())
+    let dependency = Dependencies(service: Service())
     CounterView(store: .init(
         feature: .init(dependency: dependency),
         initialState: .init()

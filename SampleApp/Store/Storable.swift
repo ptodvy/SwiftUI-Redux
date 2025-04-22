@@ -9,13 +9,13 @@ import SwiftUI
 
 protocol Storable: View {
     associatedtype Feature: FeatureType
-    var store: Store<Feature> { get }
+    @MainActor var store: Store<Feature> { get }
 }
 
 protocol FeatureType {
-    associatedtype State
-    associatedtype Action
-    @MainActor func reduce(into state: inout State, action: Action) async
+    associatedtype State: Sendable
+    associatedtype Action: Sendable
+    @MainActor func reduce(state: State, action: Action) async -> Self.State
 }
 
 protocol BindableAction {
@@ -23,8 +23,10 @@ protocol BindableAction {
   static func binding(_ action: BindingAction) -> Self
 }
 
+@MainActor
 final class Store<Feature: FeatureType>: ObservableObject {
-    @Published var state: Feature.State
+    // binding을 사용하지 않는다면 private(set)
+    @Published private(set) var state: Feature.State
     private var feature: Feature
     
     init(feature: Feature, initialState state: Feature.State) {
@@ -32,15 +34,15 @@ final class Store<Feature: FeatureType>: ObservableObject {
         self.state = state
     }
     
-    @MainActor
     func send(action: Feature.Action) {
-        Task {
-            await feature.reduce(into: &state, action: action)
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            await send(action: action)
         }
     }
     
     func send(action: Feature.Action) async {
-        await feature.reduce(into: &state, action: action)
+        state = await feature.reduce(state: state, action: action)
     }
     
     func binding<T: Equatable>(for keyPath: WritableKeyPath<Feature.State, T>, action: Feature.Action.BindingAction) -> Binding<T> where Feature.Action: BindableAction {
@@ -49,9 +51,7 @@ final class Store<Feature: FeatureType>: ObservableObject {
             set: { newValue in
                 guard self.state[keyPath: keyPath] != newValue else { return }
                 self.state[keyPath: keyPath] = newValue
-                Task {
-                    await self.send(action: .binding(action))
-                }
+                self.send(action: .binding(action))
             }
         )
     }
