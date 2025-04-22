@@ -35,9 +35,9 @@ protocol Storable: View {
 
 ```swift
 protocol FeatureType {
-    associatedtype State
-    associatedtype Action
-    @MainActor func reduce(into state: inout State, action: Action) async
+    associatedtype State: Sendable
+    associatedtype Action: Sendable
+    @MainActor func reduce(state: State, action: Action) async -> Self.State
 }
 ```
 
@@ -49,6 +49,7 @@ protocol FeatureType {
 ### `Store` Class
 
 ```swift
+@MainActor
 final class Store<Feature: FeatureType>: ObservableObject {
     @Published var state: Feature.State
     private var feature: Feature
@@ -58,11 +59,14 @@ final class Store<Feature: FeatureType>: ObservableObject {
         self.state = state
     }
 
-    @MainActor
     func send(action: Feature.Action) {
-        Task {
-            await feature.reduce(into: &state, action: action)
+        Task { @MainActor in
+            await send(action: action)
         }
+    }
+
+    func send(action: Feature.Action) async {
+        state = await feature.reduce(state: state, action: action)
     }
 
     func binding<T: Equatable>(for keyPath: WritableKeyPath<Feature.State, T>, action: Feature.Action.BindingAction) -> Binding<T> where Feature.Action: BindableAction {
@@ -71,9 +75,7 @@ final class Store<Feature: FeatureType>: ObservableObject {
             set: { newValue in
                 guard self.state[keyPath: keyPath] != newValue else { return }
                 self.state[keyPath: keyPath] = newValue
-                Task {
-                    await self.send(action: .binding(action))
-                }
+                self.send(action: .binding(action))
             }
         )
     }
@@ -101,17 +103,45 @@ protocol BindableAction {
 ## 🔌 Dependency Injection
 
 ```swift
-class Dependencies: ObservableObject {
-    var service: ServiceType
+
+protocol CounterFeatureDependency: Sendable {
+    func increment(int: Int) async -> Int
+    func decrement(int: Int) async -> Int
+}
+
+final class Dependencies: Sendable, ObservableObject {
+    let service: ServiceType
+
     init(service: ServiceType) {
         self.service = service
     }
 }
 
-@EnvironmentObject var dependency: Dependencies
+
+protocol ServiceType: Sendable {
+    func increment(int: Int) async -> Int
+    func decrement(int: Int) async -> Int
+}
+
+struct Service: ServiceType {
+    func increment(int: Int) async -> Int {
+        await Task.detached {
+            var result = int
+            result += 1
+            return result
+        }.value
+    }
+    
+    func decrement(int: Int) async -> Int {
+        await Task.detached {
+            var result = int
+            result -= 1
+            return result
+        }.value
+    }
+}
 ```
 
-- Use `@EnvironmentObject` to inject dependencies into Features or Views.
 - Makes testing and mocking simpler.
 
 ---
@@ -137,7 +167,8 @@ class Dependencies: ObservableObject {
 ### Mock Example
 
 ```swift
-class MockCounterFeatureDependency: CounterFeatureDependencyType {
+
+final class MockCounterFeatureDependency: CounterFeatureDependency {
     func increment(int: Int) async -> Int { int + 1 }
     func decrement(int: Int) async -> Int { int - 1 }
 }
