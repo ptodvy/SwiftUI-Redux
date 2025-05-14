@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CounterView: Storable {
     @EnvironmentObject var dependency: Dependencies
-    @StateObject var store: Store<CounterView.Feature>
+    @ObservedObject var store: Store<CounterView.Feature>
     
     var body: some View {
         VStack {
@@ -41,6 +41,13 @@ struct CounterView: Storable {
             Text("count: \(store.state.count)")
             
             Spacer()
+            
+            Button {
+                store.send(action: .delegate(.dismiss))
+            } label: {
+                Text("Dismiss")
+            }
+
         }
         .padding(18)
     }

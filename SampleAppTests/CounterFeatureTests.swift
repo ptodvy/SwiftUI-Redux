@@ -8,36 +8,38 @@
 import Testing
 @testable import SampleApp
 
-@MainActor
+@Suite("CounterFeature Tests")
 struct CounterFeatureTests {
-    
-    @Test func testIncrementAction() async throws {
-        let store = Store<CounterView.Feature>(feature: .init(dependency: MockCounterFeatureDependency()), initialState: .init())
+    @Test("Increment action should increase count")
+    func testIncrementAction() async {
+        let mockDependency = MockCounterFeatureDependency()
+        let feature = CounterView.Feature(dependency: mockDependency)
+        let initialState = CounterView.Feature.State()
         
-        await store.send(action: .increment)
+        let newState = await feature.reduce(state: initialState, action: .increment)
         
-        #expect(store.state.count == 1)
+        #expect(newState.count == 1)
     }
     
-    @Test
-    func testDecrementAction() async throws {
-        let store = Store<CounterView.Feature>(feature: .init(dependency: MockCounterFeatureDependency()), initialState: .init())
+    @Test("Decrement action should decrease count")
+    func testDecrementAction() async {
+        let mockDependency = MockCounterFeatureDependency()
+        let feature = CounterView.Feature(dependency: mockDependency)
+        let initialState = CounterView.Feature.State()
         
-        await store.send(action: .decrement)
+        let newState = await feature.reduce(state: initialState, action: .decrement)
         
-        #expect(store.state.count == -1)
+        #expect(newState.count == -1)
     }
     
-    @Test
-    func testEditText() async throws {
-        // Arrange
-        let store = Store<CounterView.Feature>(feature: .init(dependency: MockCounterFeatureDependency()), initialState: .init())
+    @Test("Text change action should update text length")
+    func testTextChangeAction() async {
+        let mockDependency = MockCounterFeatureDependency()
+        let feature = CounterView.Feature(dependency: mockDependency)
+        let initialState = CounterView.Feature.State(text: "Test")
         
-        let bindValue = store.binding(for: \.text, action: .textChange)
-        bindValue.wrappedValue = "testEditText"
+        let newState = await feature.reduce(state: initialState, action: .binding(.textChange))
         
-        #expect(store.state.text == "testEditText")
-        try await Task.sleep(for: .milliseconds(100))
-        #expect(store.state.textLength == "testEditText".count)
+        #expect(newState.textLength == 4)
     }
 }

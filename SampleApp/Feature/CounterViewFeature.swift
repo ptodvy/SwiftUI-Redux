@@ -5,12 +5,10 @@
 //  Created by bruno on 4/17/25.
 //
 
-
 extension CounterView {
-    
     struct Feature: FeatureType {
         
-        struct State {
+        struct State: Hashable {
             var count: Int = 0
             var text: String = ""
             var textLength: Int = 0
@@ -20,6 +18,11 @@ extension CounterView {
             case increment
             case decrement
             case binding(_ action: BindingAction)
+            case delegate(Delegate)
+            
+            enum Delegate: Equatable {
+                case dismiss
+            }
         }
         
         enum BindingAction {
@@ -34,6 +37,7 @@ extension CounterView {
         
         func reduce(state: State, action: Action) async -> Self.State {
             var newState = state
+            
             switch action {
             case .increment:
                 newState.count = await dependency.increment(int: state.count)
@@ -45,6 +49,8 @@ extension CounterView {
                     newState.textLength = state.text.count
                     break
                 }
+            case .delegate(_):
+                break
             }
             
             return newState

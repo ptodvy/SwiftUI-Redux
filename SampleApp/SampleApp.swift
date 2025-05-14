@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUIReduxApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(store: .init(feature: .init(), initialState: .init()))
                 .environmentObject(Dependencies(service: Service()))
         }
     }

@@ -24,9 +24,9 @@ protocol BindableAction {
 }
 
 @MainActor
-final class Store<Feature: FeatureType>: ObservableObject {
-    // binding을 사용하지 않는다면 private(set)
-    @Published private(set) var state: Feature.State
+class Store<Feature: FeatureType>: ObservableObject {
+    
+    @Published var state: Feature.State
     private var feature: Feature
     
     init(feature: Feature, initialState state: Feature.State) {
@@ -54,5 +54,46 @@ final class Store<Feature: FeatureType>: ObservableObject {
                 self.send(action: .binding(action))
             }
         )
+    }
+    
+    func scope<ScopedFeature: FeatureType>(
+        state: WritableKeyPath<Feature.State, ScopedFeature.State>,
+        action: @escaping (ScopedFeature.Action) -> Feature.Action,
+        feature: ScopedFeature
+    ) -> Store<ScopedFeature> {
+        ScopedStore(
+            parent: self,
+            state: state,
+            action: action,
+            feature: feature
+        )
+    }
+}
+
+@MainActor
+private final class ScopedStore<ParentFeature: FeatureType, ScopedFeature: FeatureType>: Store<ScopedFeature> {
+    private let parent: Store<ParentFeature>
+    private let stateKeyPath: WritableKeyPath<ParentFeature.State, ScopedFeature.State>
+    private let transferAction: (ScopedFeature.Action) -> ParentFeature.Action
+    
+    init(
+        parent: Store<ParentFeature>,
+        state: WritableKeyPath<ParentFeature.State, ScopedFeature.State>,
+        action: @escaping (ScopedFeature.Action) -> ParentFeature.Action,
+        feature: ScopedFeature
+    ) {
+        self.parent = parent
+        self.stateKeyPath = state
+        self.transferAction = action
+        super.init(
+            feature: feature,
+            initialState: parent.state[keyPath: state]
+        )
+    }
+    
+    override func send(action: ScopedFeature.Action) async {
+        await super.send(action: action)
+        parent.state[keyPath: stateKeyPath] = self.state
+        await parent.send(action: transferAction(action))
     }
 }

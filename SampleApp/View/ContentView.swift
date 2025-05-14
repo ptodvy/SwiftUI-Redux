@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView: Storable {
     @EnvironmentObject var dependency: Dependencies
+    @StateObject var store: Store<ContentView.Feature>
     
     var body: some View {
         NavigationStack {
@@ -17,22 +18,42 @@ struct ContentView: View {
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 
-                Text("Hello, world!")
+                Text("Hello, world! \(store.state.count)")
                 
-                NavigationLink("Go to CounterView") {
-                    let feature = CounterView.Feature(dependency: dependency)
-                    CounterView(store: .init(
-                        feature: feature,
-                        initialState: .init()
-                    ))
+                Button("Go to CounterView") {
+                    store.send(action: .goToCounterView)
                 }
+                
+                HStack {
+                    Button("Increment") {
+                        store.send(action: .increment)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    
+                    Button("Decrement") {
+                        store.send(action: .decrement)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                
+                
+                Text("Child! \(store.state.counterViewFeature.count)")
+                Text("Child! \(store.state.counterViewFeature.text)")
             }
             .padding()
+            .navigationDestination(isPresented: $store.state.isPresentedCounterView) {
+                CounterView(
+                    store: store.scope(
+                        state: \.counterViewFeature,
+                        action: ContentView.Feature.Action.counterViewFeature,
+                        feature: .init(dependency: dependency))
+                )
+            }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(store: .init(feature: .init(), initialState: .init()))
         .environmentObject(Dependencies(service: Service()))
 }
