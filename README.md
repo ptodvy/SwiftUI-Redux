@@ -13,6 +13,7 @@ This framework includes the following key components:
 - **FeatureType Protocol**: Defines `State`, `Action`, and the async reducer function.
 - **Store Class**: Maintains state and handles actions; supports two-way bindings.
 - **DependencyType Abstraction**: Decouples business logic from external services to improve testability.
+- **Scoping System**: Enables hierarchical state management and action propagation.
 
 ---
 
@@ -79,11 +80,25 @@ final class Store<Feature: FeatureType>: ObservableObject {
             }
         )
     }
+
+    func scope<ScopedFeature: FeatureType>(
+        state: WritableKeyPath<Feature.State, ScopedFeature.State>,
+        action: @escaping (ScopedFeature.Action) -> Feature.Action,
+        feature: ScopedFeature
+    ) -> Store<ScopedFeature> {
+        ScopedStore(
+            parent: self,
+            state: state,
+            action: action,
+            feature: feature
+        )
+    }
 }
 ```
 
 - Manages action dispatch and state updates.
 - Automatically syncs with SwiftUI through `@Published`.
+- Supports scoping for hierarchical state management.
 
 ---
 
@@ -103,7 +118,6 @@ protocol BindableAction {
 ## 🔌 Dependency Injection
 
 ```swift
-
 protocol CounterFeatureDependency: Sendable {
     func increment(int: Int) async -> Int
     func decrement(int: Int) async -> Int
@@ -116,7 +130,6 @@ final class Dependencies: Sendable, ObservableObject {
         self.service = service
     }
 }
-
 
 protocol ServiceType: Sendable {
     func increment(int: Int) async -> Int
@@ -146,6 +159,64 @@ struct Service: ServiceType {
 
 ---
 
+## 🎯 Scoping
+
+### Overview
+Scoping allows you to create hierarchical state management by nesting features within each other. This enables:
+- State isolation between features
+- Action propagation from child to parent
+- Independent testing of features
+- Reusable feature components
+
+### Implementation
+```swift
+// Parent Feature
+struct ParentFeature: FeatureType {
+    struct State {
+        var childState: ChildFeature.State
+    }
+    
+    enum Action {
+        case child(ChildFeature.Action)
+    }
+}
+
+// Child Feature
+struct ChildFeature: FeatureType {
+    struct State {
+        var count: Int
+    }
+    
+    enum Action {
+        case increment
+        case decrement
+    }
+}
+
+// Scoped View Implementation
+struct ParentView: Storable {
+    @MainActor let store: Store<ParentFeature>
+    
+    var body: some View {
+        VStack {
+            ChildView(store: store.scope(
+                state: \.childState,
+                action: ParentFeature.Action.child,
+                feature: ChildFeature(dependency: dependency)
+            ))
+        }
+    }
+}
+```
+
+### Benefits
+1. **State Isolation**: Each feature manages its own state
+2. **Action Propagation**: Child actions bubble up to parent
+3. **Reusability**: Features can be reused independently
+4. **Testability**: Features can be tested in isolation
+
+---
+
 ## 📍 State Transition Flow
 
 ```
@@ -167,7 +238,6 @@ struct Service: ServiceType {
 ### Mock Example
 
 ```swift
-
 final class MockCounterFeatureDependency: CounterFeatureDependency {
     func increment(int: Int) async -> Int { int + 1 }
     func decrement(int: Int) async -> Int { int - 1 }
@@ -198,12 +268,7 @@ final class MockCounterFeatureDependency: CounterFeatureDependency {
 | Testable           | Features can be unit tested independently        |
 | Decoupled DI       | Business logic is externalized via dependencies  |
 | Integrated Binding | Seamlessly maps SwiftUI inputs to state changes  |
-
----
-
-## 🛠 Future Improvements
-
--
+| Hierarchical       | Supports nested features through scoping         |
 
 ---
 
