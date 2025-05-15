@@ -18,11 +18,6 @@ extension CounterView {
             case increment
             case decrement
             case binding(_ action: BindingAction)
-            case delegate(Delegate)
-            
-            enum Delegate: Equatable {
-                case dismiss
-            }
         }
         
         enum BindingAction {
@@ -49,8 +44,6 @@ extension CounterView {
                     newState.textLength = state.text.count
                     break
                 }
-            case .delegate(_):
-                break
             }
             
             return newState

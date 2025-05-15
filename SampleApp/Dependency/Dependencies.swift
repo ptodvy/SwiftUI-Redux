@@ -7,8 +7,35 @@
 
 import SwiftUI
 
-final class Dependencies: Sendable, ObservableObject {
 
+// 예시용 화면 타입 정의
+enum Route: Hashable {
+    case counter
+}
+
+class PathStore: ObservableObject {
+    @Published var path: NavigationPath = .init()
+    
+    func navigate(to route: Route) {
+        path.append(route)
+    }
+    
+    func goBack() {
+        guard !path.isEmpty else { return }
+        path.removeLast()
+    }
+        
+    func goRoot() {
+        path.removeLast(path.count)
+    }
+    
+    init(path: NavigationPath = .init()) {
+        self.path = path
+    }
+}
+
+
+final class Dependencies: Sendable, ObservableObject {
     let service: ServiceType
     
     init(service: ServiceType) {

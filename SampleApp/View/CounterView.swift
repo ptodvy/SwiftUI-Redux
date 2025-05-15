@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CounterView: Storable {
     @EnvironmentObject var dependency: Dependencies
+    @EnvironmentObject var pathStore: PathStore
     @ObservedObject var store: Store<CounterView.Feature>
     
     var body: some View {
@@ -43,13 +44,16 @@ struct CounterView: Storable {
             Spacer()
             
             Button {
-                store.send(action: .delegate(.dismiss))
+                pathStore.goBack()
             } label: {
                 Text("Dismiss")
             }
 
         }
         .padding(18)
+        .onAppear() {
+            print(pathStore.path)
+        }
     }
 }
 

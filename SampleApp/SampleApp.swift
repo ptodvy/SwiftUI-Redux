@@ -13,6 +13,7 @@ struct SwiftUIReduxApp: App {
         WindowGroup {
             ContentView(store: .init(feature: .init(), initialState: .init()))
                 .environmentObject(Dependencies(service: Service()))
+                .environmentObject(PathStore())
         }
     }
 }

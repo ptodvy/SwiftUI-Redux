@@ -9,14 +9,12 @@ extension ContentView {
     struct Feature: FeatureType {
         struct State {
             var count: Int = 0
-            var isPresentedCounterView: Bool = false
             var counterViewFeature: CounterView.Feature.State = .init()
         }
         
         enum Action {
             case increment
             case decrement
-            case goToCounterView
             case counterViewFeature(CounterView.Feature.Action)
         }
         
@@ -29,18 +27,8 @@ extension ContentView {
             case .decrement:
                 newState.count -= 1
                 newState.counterViewFeature.count = newState.count
-            case .goToCounterView:
-                newState.isPresentedCounterView = true
             case .counterViewFeature(let action):
-                switch action {
-                case .delegate(let delegateAction):
-                    switch delegateAction {
-                    case .dismiss:
-                        newState.isPresentedCounterView = false
-                    }
-                default:
-                    break
-                }
+                break
             }
             return newState
         }

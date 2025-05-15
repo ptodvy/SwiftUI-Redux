@@ -17,6 +17,75 @@ This framework includes the following key components:
 
 ---
 
+## 🏗 Architecture
+
+### Dependency Graph
+
+```mermaid
+graph TD
+    subgraph "View Layer"
+        View[View]
+    end
+
+    subgraph "Store Layer"
+        Store[Store&lt;Feature&gt;]
+        Feature[Feature]
+    end
+
+    subgraph "Dependency Layer"
+        Dependencies[Dependencies]
+        Service[Service]
+    end
+
+    subgraph "Navigation Layer"
+        PathStore[PathStore]
+    end
+
+    subgraph "Protocol Layer"
+        ServiceType[ServiceType]
+        Storable[Storable]
+    end
+
+    %% View Layer Dependencies
+    View --> Store
+    View --> Dependencies
+    View --> PathStore
+
+    %% Store Layer Dependencies
+    Store --> Feature
+    Feature --> Dependencies
+
+    %% Dependency Layer Dependencies
+    Dependencies --> Service
+    Service --> ServiceType
+
+    %% Protocol Conformance
+    View --> Storable
+    Service --> ServiceType
+```
+
+### Layer Description
+
+1. **View Layer**
+   - `View`: UI component that renders the application state
+
+2. **Store Layer**
+   - `Store<Feature>`: State management container
+   - `Feature`: Business logic implementation
+
+3. **Dependency Layer**
+   - `Dependencies`: Dependency injection container
+   - `Service`: Business service implementation
+
+4. **Navigation Layer**
+   - `PathStore`: Navigation state management
+
+5. **Protocol Layer**
+   - `ServiceType`: Service interface definition
+   - `Storable`: View state management interface
+
+---
+
 ## 🧱 Core Components
 
 ### `Storable` Protocol
@@ -275,4 +344,3 @@ final class MockCounterFeatureDependency: CounterFeatureDependency {
 ## 📄 License
 
 MIT License
-
